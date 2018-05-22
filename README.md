@@ -1,7 +1,7 @@
 # shadowsocks-install-scripts
 An one-click-script for installing shadowsocks on your Linux OS
 
-> 本项目用于在Linux上安装Python版本的shadowsocks。
+> 本项目用于在不同的Linux上安装Python版本的shadowsocks。
 
 项目文件清单
 

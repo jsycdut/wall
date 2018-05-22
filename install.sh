@@ -45,3 +45,34 @@ cat << -EOF
 ########################### How this shacript works ###################################
 
 -EOF
+
+
+if [[ $EUID -ne 0 ]]; then
+	echo "ERROR!!! Please run this script as root"
+	exit 1
+fi
+
+os_name=to_be_detected
+os_version=to_be_detected
+
+# Judging the os's name and version
+check_os(){
+	if [[ -e /etc/*-release  ]]
+	then 
+		echo 'Judging from /etc/*-release'	
+	elif [ -e /proc/version ]
+	then 
+		echo 'Judging from /proc/version'	
+	elif [[ -e /etc/issue ]]
+	then
+		echo 'Juging from /etc/issue'
+	else
+		echo "Error! can't judge the os you are using"
+		exit 1
+	fi
+}
+
+libsodium_name="libsodium-1.0.16"
+libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
+libsodium_url_backup=""
+bbr_url="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
