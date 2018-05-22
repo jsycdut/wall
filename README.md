@@ -5,11 +5,12 @@ An one-click-script for installing shadowsocks on your Linux OS
 
 项目文件清单
 
-1. install.sh，用于安装shadowsocks
-2. add-shadowsocks-user.sh，用于添加shadowsocks用户
+1. install.sh
+2. add-shadowsocks-user.sh
 
-`install.sh`用于在Linux上安装Python版本的shadowsocks，而`add-shadowsocks-user.sh`用于添加shadowsocks用户，因为我的服务器上总是不止一个账号。
-所以如果原有的shadowsocks的服务器被GFW封IP的话，那么在新的服务器上部署shadowsocks必须要把原有的用户移到新的服务器上，这种事情当然是写脚本操作了。
+`install.sh`用于在Linux上安装Python版本的shadowsocks;
+`add-shadowsocks-user.sh`用于添加shadowsocks用户，因为我的服务器上总是不止一个账号。
+所以如果原有的shadowsocks的服务器被GFW封IP的话，那么在新的服务器上部署shadowsocks必须要把原有的用户移到新的服务器上，这种事情当然是写脚本操作了。这个脚本的核心在两个数组，`ports` `passwords`，前者是shadowsocks的端口，后者是shadowsocks对应端口的密码，然后就是调用流量管理脚本来添加端口和密码以及对应的流量限制了（默认50GB）。
 
 # 注意
 
