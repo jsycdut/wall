@@ -72,7 +72,11 @@ check_os(){
 	fi
 }
 
+# necessary file resource
 libsodium_name="libsodium-1.0.16"
 libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
-libsodium_url_backup=""
+libsodium_url_backup="http://178.62.201.152:6291/libsodium-1.0.16.tar.gz"
 bbr_url="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
+bbr_url_backup="http://178.62.201.152:6291/bbr.sh"
+
+
