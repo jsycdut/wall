@@ -79,4 +79,21 @@ libsodium_url_backup="http://178.62.201.152:6291/libsodium-1.0.16.tar.gz"
 bbr_url="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
 bbr_url_backup="http://178.62.201.152:6291/bbr.sh"
 
+preinstall(){
+	echo "Now making preinstall folder in your /tmp"
+	echo "mkdir /tmp/preinstall-shadowsocks"
+	mkdir -pv  /tmp/preinstall-shadowsocks
+        echo "downloading essential files"
+	wget --no-check-certificate -O libsodium-1.0.16.tar.gz $libsodium_url
+	if [[ ! -e /tmp/preinstall-shadowsocks/libsodium-1.0.16.tar.gz ]]; then
+		wget --no-chech-certificate -O libsodium-1.0.16.tar.gz $libsodium_url_backup
 
+	fi
+	wget --no-check-certificate -O bbr.sh $bbr_url
+	if [[ ! -e /tmp/preinstall-shadowsocks/bbr.sh ]]; then
+		wget --no-check-certificate -O bbr.sh $bbr_url_backup
+	fi
+	if [[ -e /tmp/preinstall-shadowsocks/bbr.sh ]]; then
+		chmod u+x bbr.sh
+	fi
+}
