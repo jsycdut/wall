@@ -28,7 +28,7 @@ cat << -EOF
 # it's really simple and full of joy.
 # The way to write a shacript is stated as follow
 #
-# 1. Judge what linux distribution you are using, simpley because we will add firewall 
+# 1. Judge what linux distribution you are using, simply because we will add firewall 
 #    rules to your machine, different linux may use different firewall packages and service
 #    tools.
 # 
@@ -46,6 +46,7 @@ cat << -EOF
 
 -EOF
 
+set -e
 
 if [[ $EUID -ne 0 ]]; then
 	echo "ERROR!!! Please run this script as root"
@@ -78,22 +79,24 @@ libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.16/li
 libsodium_url_backup="http://178.62.201.152:6291/libsodium-1.0.16.tar.gz"
 bbr_url="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
 bbr_url_backup="http://178.62.201.152:6291/bbr.sh"
+base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
 	echo "Now making preinstall folder in your /tmp"
-	echo "mkdir /tmp/preinstall-shadowsocks"
-	mkdir -pv  /tmp/preinstall-shadowsocks
+	echo "mkdir $base" 
+	mkdir -pv $base
+	cd $base
         echo "downloading essential files"
 	wget --no-check-certificate -O libsodium-1.0.16.tar.gz $libsodium_url
-	if [[ ! -e /tmp/preinstall-shadowsocks/libsodium-1.0.16.tar.gz ]]; then
+	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
 		wget --no-chech-certificate -O libsodium-1.0.16.tar.gz $libsodium_url_backup
 
 	fi
 	wget --no-check-certificate -O bbr.sh $bbr_url
-	if [[ ! -e /tmp/preinstall-shadowsocks/bbr.sh ]]; then
+	if [[ ! -e $base/bbr.sh ]]; then
 		wget --no-check-certificate -O bbr.sh $bbr_url_backup
 	fi
-	if [[ -e /tmp/preinstall-shadowsocks/bbr.sh ]]; then
+	if [[ -e $base/bbr.sh ]]; then
 		chmod u+x bbr.sh
 	fi
 }
