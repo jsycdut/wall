@@ -11,6 +11,7 @@ cat << -EOF
 # If you hit some troubles caused by shell interpreter
 # Please contact the author via github issue or email <jsycdut@gmail.com>
 ################################# Statement #########################################
+-EOF
 
 ######################### Why I write this shacript##################################
 # I have read some one-click-shadowsocks-install-scripts, but there is no perfect 
@@ -44,7 +45,6 @@ cat << -EOF
 # 6. Remove all the files we downloaded to keep your linux clean.
 ########################### How this shacript works ###################################
 
--EOF
 
 set -e
 
@@ -68,12 +68,12 @@ check_os(){
 		os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
 	fi
 	cat <<-EOF
-	=======================System Infomation=================
+	=======================System Information=================
 
 	Linux_Name: $os_name 
 	Linux_Version: $os_version 
 
-	=======================System Infomation=================
+	=======================System Information=================
 	EOF
 	
 }
@@ -94,14 +94,14 @@ preinstall(){
 	mkdir -pv $base
 	cd $base
         echo "downloading essential files"
-	wget --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url
+	wget -q --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
-		wget --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
+		wget -q --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
 
 	fi
-	wget --no-check-certificate -O bbr.sh $bbr_url
+	wget -q --no-check-certificate -O bbr.sh $bbr_url
 	if [[ ! -e $base/bbr.sh ]]; then
-		wget --no-check-certificate -O bbr.sh $bbr_url_backup
+		wget -q --no-check-certificate -O bbr.sh $bbr_url_backup
 	fi
 	if [[ -e $base/bbr.sh ]]; then
 		chmod u+x bbr.sh
