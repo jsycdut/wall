@@ -85,7 +85,7 @@ check_os(){
 		os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
 		os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
 	fi
-	if [[ `cat os_name | grep -Ei "ubuntu|debian"` ]]; then
+	if [[ `cat $os_name | grep -Ei "ubuntu|debian"` ]]; then
 		os_pm='apt-get'
 	fi
 	echo "We detected your system information as below"
