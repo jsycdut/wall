@@ -45,8 +45,18 @@ cat << -EOF
 
 set -e
 
+# prompt_color
+# greem background white characters
+info='\033[42;37m'
+# yellow background white characters
+warning='\033[43;37m'
+# red background white characters
+error='\033[41;37m'
+# plain characters
+end='\033[0m'
+
 if [[ $EUID -ne 0 ]]; then
-	echo "ERROR!!! Please run this script as root"
+	echo -e "${error}ERROR!!! ${end} Please run this script as root"
 	exit 1
 fi
 
@@ -68,15 +78,20 @@ end='\033[0m'
 check_os(){
 	if [[ `ls /etc/ | grep -Ei "centos|redhat"` ]]; then
 		os_name="rhel"
+		os_pm='yum'
 		os_version=`rpm -q centos-release | awk -F '-' '{print $3}'`
 	fi
 	if [[ -z $os_name ]]; then
 		os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
 		os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
 	fi
+	if [[ `cat os_name | grep -Ei "ubuntu|debian"` ]]; then
+		os_pm='apt-get'
+	fi
 	echo "We detected your system information as below"
 	echo -e ${info} Linux Distribution: ${end} $os_name 
 	echo -e ${info} Linux Version:      ${end} $os_version
+	echo -e ${info} Package Manager:    ${end} $os_pm
 }
 
 # necessary file resource
@@ -90,11 +105,11 @@ shadowsocks_source_code_folder="shadowsocks_2.9.1"
 base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
-	echo "Now making preinstall folder in your /tmp"
-	echo "mkdir $base" 
+	echo -e "${info} info ${end}Now making preinstall folder in your /tmp"
+	echo -e "${info} info ${end} Creating directory $base" 
 	mkdir -pv $base
 	cd $base
-        echo "downloading essential files"
+        echo -e "${info} info ${end} Downloading essential files"
 	wget -q --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
 		wget -q --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
