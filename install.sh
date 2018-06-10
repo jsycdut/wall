@@ -115,7 +115,7 @@ preinstall(){
 	if [[ -e $base/bbr.sh ]]; then
 		chmod u+x bbr.sh
 	fi
-	wget -O $shadowsocks_url 
+	wget -O 2.9.1.zip $shadowsocks_url
 	if [[ -e 2.9.1.zip ]]; then
 		unzip -q 2.9.1.zip
 	fi
