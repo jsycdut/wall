@@ -59,8 +59,8 @@ os_pm=''
 
 # Judging the os's name and version
 check_os(){
-	os_name=`cat /etc/*release | grep -i name= | awk -F '"' '{print $2}'`
-	os_version=`cat /etc/*release | grep -i version= |awk -F '"' '{print $2}'`
+	os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
+	os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
 	cat <<-EOF
 	=======================System Infomation=================
 
