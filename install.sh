@@ -117,6 +117,7 @@ preinstall(){
 		chmod u+x bbr.sh
 	fi
 	# TODO install dependency 
+	$os_pm install zip -y -q
 	wget -q -O 2.9.1.zip $shadowsocks_url
 	if [[ -e 2.9.1.zip ]]; then
 		unzip -q 2.9.1.zip
