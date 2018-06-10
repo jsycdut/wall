@@ -3,7 +3,7 @@
 cat << -EOF
 ####################### Statement ################################
 # Author: jsycdut <jsycdut@gmail.com>
-# Desc:   Install Shadowsocks(Python) in Debian 7+, Ubuntu 16+
+# Desc:   Install Shadowsocks(Python) in Debian 8+, Ubuntu 16+
 #         Redhat 7+, CentOS 7+, Arch
 ###################### Statement ################################
 -EOF
@@ -99,11 +99,11 @@ shadowsocks_source_code_folder="shadowsocks_2.9.1"
 base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
-	echo -e "${info} info ${end} Now making preinstall folder in /tmp"
-	echo -e "${info} info ${end} Creating directory $base" 
-	mkdir -pv $base
+	#echo -e "${info} info ${end} Now making preinstall folder in /tmp"
+	#echo -e "${info} info ${end} Creating directory $base" 
+	mkdir -p $base
 	cd $base
-        echo -e "${info} info ${end} Downloading essential files"
+        #echo -e "${info} info ${end} Downloading essential files"
 	wget -q --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
 		wget -q --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
@@ -116,6 +116,7 @@ preinstall(){
 	if [[ -e $base/bbr.sh ]]; then
 		chmod u+x bbr.sh
 	fi
+	# TODO install dependency 
 	wget -q -O 2.9.1.zip $shadowsocks_url
 	if [[ -e 2.9.1.zip ]]; then
 		unzip -q 2.9.1.zip
