@@ -1,8 +1,8 @@
 # shadowsocks-install-scripts
 ![build status](https://travis-ci.org/jsycdut/shadowsocks-install-scripts.svg?branch=master)
-An one-click-script for installing shadowsocks on your Linux OS
 
-> 本项目用于在不同的Linux上安装Python版本的shadowsocks。
+An one-click-script for installing shadowsocks on your Linux OS
+ 本项目用于在不同的Linux上安装Python版本的shadowsocks。
 
 项目文件清单
 
