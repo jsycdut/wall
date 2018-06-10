@@ -69,11 +69,11 @@ check_os(){
 		os_name="Redhat_series"
 		os_pm="rpm"
 	fi
-	if $os_name=="Debian" -a -e /etc/*release; then 
+	if [[ $os_name=="Debian" &&  -e /etc/*release ]]; then 
 		os_version=cat/etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
-	elif $os_name=="Ubuntu" -a -e /etc/*release; then
+	elif [[ $os_name=="Ubuntu" &&  -e /etc/*release ]]; then
 		os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
-	elif $os_name=="Redhat_series" -a -e /etc/*release; then
+	elif [[ $os_name=="Redhat_series" && -e /etc/*release ]]; then
 		os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
 	fi
 	cat <<-EOF
