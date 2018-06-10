@@ -59,7 +59,7 @@ os_pm=''
 
 # Judging the os's name and version
 check_os(){
-	if [[ `ls /etc/ grep -Ei "centos|redhat"` ]]; then
+	if [[ `ls /etc/ | grep -Ei "centos|redhat"` ]]; then
 		os_name="rhel"
 		os_version=`rpm -q centos-release | awk -F '-' '{print $3}'`
 	fi
