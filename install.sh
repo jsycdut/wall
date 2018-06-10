@@ -3,11 +3,9 @@
 cat << -EOF
 ####################### Statement ################################
 # Author: jsycdut <jsycdut@gmail.com>
-# Description: This script is used for installing shadowsocks(python edition) on variety of Linux 
-#              distributions, such as Ubuntu, Debian, Cent OS, Fedora, Arch. It may
-#              take  a few weeks to write this script that I call it shacript, so 
-#              just do it.
-################################# Statement #########################################
+# Desc:   Install Shadowsocks(Python) in Debian 7+, Ubuntu 16+
+#         Redhat 7+, CentOS 7+, Arch
+###################### Statement ################################
 -EOF
 
 ######################### Why I write this shacript##################################
@@ -42,17 +40,13 @@ cat << -EOF
 # 6. Remove all the files we downloaded to keep your linux clean.
 ########################### How this shacript works ###################################
 
-
+# exit when hit error
 set -e
 
 # prompt_color
-# greem background white characters
 info='\033[42;37m'
-# yellow background white characters
 warning='\033[43;37m'
-# red background white characters
 error='\033[41;37m'
-# plain characters
 end='\033[0m'
 
 if [[ $EUID -ne 0 ]]; then
@@ -90,9 +84,9 @@ check_os(){
 		os_pm='apt-get'
 	fi
 	echo "We detected your system information as below"
-	echo -e ${info} Linux Distribution: ${end} $os_name 
-	echo -e ${info} Linux Version:      ${end} $os_version
-	echo -e ${info} Package Manager:    ${end} $os_pm
+	echo -e ${info} Linux Distribution:  ${end} $os_name 
+	echo -e ${info} Linux      Version:  ${end} $os_version
+	echo -e ${info} Package    Manager:  ${end} $os_pm
 }
 
 # necessary file resource
@@ -106,7 +100,7 @@ shadowsocks_source_code_folder="shadowsocks_2.9.1"
 base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
-	echo -e "${info} info ${end}Now making preinstall folder in your /tmp"
+	echo -e "${info} info ${end} Now making preinstall folder in /tmp"
 	echo -e "${info} info ${end} Creating directory $base" 
 	mkdir -pv $base
 	cd $base
