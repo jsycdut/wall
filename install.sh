@@ -76,12 +76,14 @@ check_os(){
 	elif $os_name=="Redhat_series" -a -e /etc/*release; then
 		$os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
 	fi
-	cat << -EOF
+	cat <<-EOF
 	=======================System Infomation"=============
+
 	Linux_name: $os_name 
 	Linux_version: $os_version 
-	======================================================
-	-EOF
+
+	=======================System Infomation"=============
+	EOF
 	
 }
 
