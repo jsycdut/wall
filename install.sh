@@ -79,14 +79,13 @@ check_os(){
 		os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
 		os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
 	fi
-	echo $os_name | grep -Ei "ubuntu|debian"
 	if [[ `echo $os_name | grep -Ei "ubuntu|debian"` ]]; then
 		os_pm='apt-get'
 	fi
 	echo "We detected your system information as below"
-	echo -e ${info} Linux Distribution:  ${end} $os_name 
-	echo -e ${info} Linux      Version:  ${end} $os_version
-	echo -e ${info} Package    Manager:  ${end} $os_pm
+	echo -e "${info} Linux Distribution:  ${end} $os_name"
+	echo -e "${info} Linux      Version:  ${end} $os_version"
+	echo -e "${info} Package    Manager:  ${end} $os_pm"
 }
 
 # necessary file resource
