@@ -123,4 +123,6 @@ preinstall(){
 }
 
 check_os 
-preinstall && ls /tmp/preinstall-shadowsocks | cat
+preinstall 
+echo 'now download the files as below in $base'
+ls $base | cat
