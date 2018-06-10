@@ -76,6 +76,7 @@ check_os(){
 	elif [[ $os_name=="Redhat_series" && -e /etc/*release ]]; then
 		os_version=`cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'`
 	fi
+	echo $os_version
 	cat <<-EOF
 	=======================System Infomation"=============
 
