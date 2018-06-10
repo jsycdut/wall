@@ -59,8 +59,14 @@ os_pm=''
 
 # Judging the os's name and version
 check_os(){
-	os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
-	os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
+	if [[ `ls /etc/ grep -Ei "centos|redhat"` ]]; then
+		os_name="rhel"
+		os_version=`rpm -q centos-release | awk -F '-' '{print $3}'`
+	fi
+	if [[ ! os_name ]]; then
+		os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
+		os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
+	fi
 	cat <<-EOF
 	=======================System Infomation=================
 
