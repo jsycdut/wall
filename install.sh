@@ -60,21 +60,21 @@ os_pm=''
 # Judging the os's name and version
 check_os(){
 	if cat /proc/version | grep -Eqi "debian"; then
-		$os_name="Debian"
-		$os_pm="apt-get"
+		os_name="Debian"
+		os_pm="apt-get"
 	elif cat /proc/version | grep -Eqi "ubuntu"; then
-		$os_name='Ubuntu'
-		$os_pm="apt-get"
+		os_name='Ubuntu'
+		os_pm="apt-get"
 	elif cat /proc/version | grep -Eqi "centos|red hat |redhat"; then
-		$os_name="Redhat_series"
-		$os_pm="rpm"
+		os_name="Redhat_series"
+		os_pm="rpm"
 	fi
 	if $os_name=="Debian" -a -e /etc/*release; then 
-		$os_version=cat/etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
+		os_version=cat/etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
 	elif $os_name=="Ubuntu" -a -e /etc/*release; then
-		$os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
+		os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
 	elif $os_name=="Redhat_series" -a -e /etc/*release; then
-		$os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
+		os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
 	fi
 	cat <<-EOF
 	=======================System Infomation"=============
