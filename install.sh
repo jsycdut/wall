@@ -63,7 +63,7 @@ check_os(){
 		$os_name="Debian"
 		$os_pm="apt-get"
 	elif cat /proc/version | grep -Eqi "ubuntu"; then
-		$os_name="Ubuntu"
+		$os_name='Ubuntu'
 		$os_pm="apt-get"
 	elif cat /proc/version | grep -Eqi "centos|red hat |redhat"; then
 		$os_name="Redhat_series"
