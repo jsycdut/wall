@@ -3,7 +3,7 @@
 cat << -EOF
 ################################# Statement #########################################
 # Author: jsycdut <jsycdut@gmail.com>
-# Description: This script is used for installing shadowsocks on variety of Linux 
+# Description: This script is used for installing shadowsocks(python edition) on variety of Linux 
 #              distributions, such as Ubuntu, Debian, Cent OS, Fedora, Arch. It may
 #              take  a few weeks to write this script that I call it shacript, so 
 #              just do it.
@@ -53,24 +53,36 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
-os_name=to_be_detected
-os_version=to_be_detected
+os_name=''
+os_version=''
+os_pm=''
 
 # Judging the os's name and version
 check_os(){
-	if [[ -e /etc/*-release  ]]
-	then 
-		echo 'Judging from /etc/*-release'	
-	elif [ -e /proc/version ]
-	then 
-		echo 'Judging from /proc/version'	
-	elif [[ -e /etc/issue ]]
-	then
-		echo 'Juging from /etc/issue'
-	else
-		echo "Error! can't judge the os you are using"
-		exit 1
+	if cat /proc/version | grep -Eqi "debian"; then
+		$os_name="Debian"
+		$os_pm="apt-get"
+	elif cat /proc/version | grep -Eqi "ubuntu"; then
+		$os_name="Ubuntu"
+		$os_pm="apt-get"
+	elif cat /proc/version | grep -Eqi "centos|red hat |redhat"; then
+		$os_name="Redhat_series"
+		$os_pm="rpm"
 	fi
+	if $os_name=="Debian" -a -e /etc/*release; then 
+		$os_version=cat/etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
+	elif $os_name=="Ubuntu" -a -e /etc/*release; then
+		$os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
+	elif $os_name=="Redhat_series" -a -e /etc/*release; then
+		$os_version=cat /etc/*release | grep -i "version=" | awk -F '=' '{print $2}'
+	fi
+	cat << -EOF
+	=======================System Infomation"=============
+	Linux_name: $os_name 
+	Linux_version: $os_version 
+	======================================================
+	-EOF
+	
 }
 
 # necessary file resource
@@ -79,6 +91,8 @@ libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.16/li
 libsodium_url_backup="http://178.62.201.152:6291/libsodium-1.0.16.tar.gz"
 bbr_url="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
 bbr_url_backup="http://178.62.201.152:6291/bbr.sh"
+shadowsocks_url="https://github.com/shadowsocks/shadowsocks/archive/2.9.1.zip"
+shadowsocks_source_code_folder="shadowsocks_2.9.1"
 base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
@@ -87,9 +101,9 @@ preinstall(){
 	mkdir -pv $base
 	cd $base
         echo "downloading essential files"
-	wget --no-check-certificate -O libsodium-1.0.16.tar.gz $libsodium_url
+	wget --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
-		wget --no-chech-certificate -O libsodium-1.0.16.tar.gz $libsodium_url_backup
+		wget --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
 
 	fi
 	wget --no-check-certificate -O bbr.sh $bbr_url
@@ -99,4 +113,11 @@ preinstall(){
 	if [[ -e $base/bbr.sh ]]; then
 		chmod u+x bbr.sh
 	fi
+	wget -O $shadowsocks_url 
+	if [[ -e 2.9.1.zip ]]; then
+		unzip -q 2.9.1.zip
+	fi
 }
+
+check_os 
+preinstall && ls /tmp/preinstall-shadowsocks | cat
