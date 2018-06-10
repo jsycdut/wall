@@ -117,13 +117,23 @@ preinstall(){
 		chmod u+x bbr.sh
 	fi
 	# TODO install dependency 
-	$os_pm install zip -y -q
+	$os_pm install unzip -y -q
 	wget -q -O 2.9.1.zip $shadowsocks_url
 	if [[ -e 2.9.1.zip ]]; then
 		unzip -q 2.9.1.zip
 	fi
+	# TODO install libsodium
+
 }
 
+
+install(){
+
+}
+
+clear(){
+
+}
 check_os 
 preinstall 
 echo "now download the files as below in $base"
