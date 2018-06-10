@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 
 cat << -EOF
-################################# Statement #########################################
+####################### Statement ################################
 # Author: jsycdut <jsycdut@gmail.com>
 # Description: This script is used for installing shadowsocks(python edition) on variety of Linux 
 #              distributions, such as Ubuntu, Debian, Cent OS, Fedora, Arch. It may
 #              take  a few weeks to write this script that I call it shacript, so 
 #              just do it.
-# We are using bash as our shell interpreter
-# If you hit some troubles caused by shell interpreter
-# Please contact the author via github issue or email <jsycdut@gmail.com>
 ################################# Statement #########################################
 -EOF
 
@@ -57,6 +54,16 @@ os_name=''
 os_version=''
 os_pm=''
 
+# prompt_color
+# greem background white characters
+info='\033[42;37m'
+# yellow background white characters
+warning='\033[43;37m'
+# red background white characters
+error='\033[41;37m'
+# plain characters
+end='\033[0m'
+
 # Judging the os's name and version
 check_os(){
 	if [[ `ls /etc/ | grep -Ei "centos|redhat"` ]]; then
@@ -67,15 +74,9 @@ check_os(){
 		os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
 		os_version=`cat /etc/*release | grep -i version_id= |awk -F '"' '{print $2}'`
 	fi
-	cat <<-EOF
-	=======================System Information=================
-
-	Linux_Name: $os_name 
-	Linux_Version: $os_version 
-
-	=======================System Information=================
-	EOF
-	
+	echo "We detected your system information as below"
+	echo -e ${info} Linux Distribution: ${end} $os_name 
+	echo -e ${info} Linux Version:      ${end} $os_version
 }
 
 # necessary file resource
