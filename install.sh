@@ -99,6 +99,7 @@ shadowsocks_source_code_folder="shadowsocks_2.9.1"
 base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
+	$os_pm install awk wget unzip python python-devel python-setuptools openssl openssl-devel gcc make automake autoconf libtool automake -y -q
 	#echo -e "${info} info ${end} Now making preinstall folder in /tmp"
 	#echo -e "${info} info ${end} Creating directory $base" 
 	mkdir -p $base
@@ -116,23 +117,16 @@ preinstall(){
 	if [[ -e $base/bbr.sh ]]; then
 		chmod u+x bbr.sh
 	fi
-	# TODO install dependency 
-	$os_pm install unzip -y -q
 	wget -q -O 2.9.1.zip $shadowsocks_url
 	if [[ -e 2.9.1.zip ]]; then
 		unzip -q 2.9.1.zip
 	fi
-	# TODO install libsodium
 
 }
-
 
 install(){
-
-}
-
-clear(){
-
+	# TODO install all
+	echo installing 
 }
 check_os 
 preinstall 
