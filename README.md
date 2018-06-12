@@ -1,5 +1,5 @@
 ## shadowsocks-install-scripts
-![build status](https://travis-ci.org/jsycdut/shadowsocks-install-scripts.svg?branch=master)
+[![build status](https://travis-ci.org/jsycdut/shadowsocks-install-scripts.svg?branch=master)](https://travis-ci.org/jsycdut/shadowsocks-install-scripts)
 
 本项目用于在不同的Linux上安装Python版本的shadowsocks。
 ## 项目进度
