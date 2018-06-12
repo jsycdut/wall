@@ -99,7 +99,7 @@ shadowsocks_source_code_folder="shadowsocks_2.9.1"
 base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
-	$os_pm install awk wget unzip python python-devel python-setuptools openssl openssl-devel gcc make automake autoconf libtool automake -y -q
+	sudo $os_pm install awk wget unzip python python-devel python-setuptools openssl openssl-devel gcc make automake autoconf libtool automake -y -q
 	#echo -e "${info} info ${end} Now making preinstall folder in /tmp"
 	#echo -e "${info} info ${end} Creating directory $base" 
 	mkdir -p $base
