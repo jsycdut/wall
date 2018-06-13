@@ -100,12 +100,20 @@ base="/tmp/preinstall-shadowsocks"
 
 preinstall(){
 	$os_pm update
-	$os_pm install gawk wget unzip python python-devel python-setuptools openssl openssl-devel gcc make automake autoconf libtool automake -y -q
-	#echo -e "${info} info ${end} Now making preinstall folder in /tmp"
-	#echo -e "${info} info ${end} Creating directory $base" 
+	common_packages="gcc make automake autoconf python python-setuptools  wget unzip openssl libtool curl"
+	# same functional package got different name in different paltform
+	apt_packages="python-dev libssl-dev "
+	yum_packages="python-devel openssl-devel"
+	$os_pm -y install $common_packages 
+	if [[ $os_pm=="apt-get" ]]; then
+		apt-get install -y $apt_packages 
+	elif [[ $os_pm=="yum" ]]; then
+		yum install -y $yum_packages 
+	fi
+	echo -e "${info} info ${end} Creating directory $base" 
 	mkdir -p $base
 	cd $base
-        #echo -e "${info} info ${end} Downloading essential files"
+        echo -e "${info} info ${end} Downloading essential files"
 	wget -q --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
 		wget -q --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
