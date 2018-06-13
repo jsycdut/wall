@@ -89,18 +89,29 @@ check_os(){
 }
 
 # necessary file resource
-libsodium_name="libsodium-1.0.16"
-libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
-libsodium_url_backup="http://178.62.201.152:6291/libsodium-1.0.16.tar.gz"
-bbr_url="https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
-bbr_url_backup="http://178.62.201.152:6291/bbr.sh"
-shadowsocks_url="https://github.com/shadowsocks/shadowsocks/archive/2.9.1.zip"
-shadowsocks_source_code_folder="shadowsocks_2.9.1"
 base="/tmp/preinstall-shadowsocks"
+
+file_names=(
+"libsodium.tar.gz"
+"bbr.sh"
+"shadowsocks-2.9.1.zip"
+)
+
+file_urls=(
+"https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
+"https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
+"https://github.com/shadowsocks/shadowsocks/archive/2.9.1.zip"
+)
+
+file_backup_urls=(
+"http://listen-1.com:6294/libsodium-1.0.16.tar.gz"
+"http://listen-1.com:6294/bbr.sh"
+"http://listen-1.com:6294/shadowsocks-2.9.1-python-source-code.zip"
+)
 
 preinstall(){
 	$os_pm update
-	common_packages="gcc make automake autoconf python python-setuptools  wget unzip openssl libtool curl"
+	common_packages="gcc make automake autoconf python python-setuptools  wget unzip tar openssl libtool curl"
 	# same functional package got different name in different paltform
 	apt_packages="python-dev libssl-dev "
 	yum_packages="python-devel openssl-devel"
@@ -113,8 +124,11 @@ preinstall(){
 	echo -e "${info} info ${end} Creating directory $base" 
 	mkdir -p $base
 	cd $base
+	s_wget="wget -q --no-check-certificate -O"
         echo -e "${info} info ${end} Downloading essential files"
-	wget -q --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url
+	for((i = 0; i<${#file_names[*]};i++)); do
+		$s_wget ${file_names[$i]} ${file_urls[$i]}
+	done
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
 		wget -q --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
 
@@ -130,6 +144,7 @@ preinstall(){
 	if [[ -e 2.9.1.zip ]]; then
 		unzip -q 2.9.1.zip
 	fi
+
 
 }
 
