@@ -48,7 +48,7 @@ check_os(){
 	info "We detected your system information as below"
 	info "Linux Distribution:"  $os_name
 	info "Linux      Version:"  $os_version
-	info "Package    Manager:"  ${end} $os_pm
+	info "Package    Manager:"  $os_pm
 }
 
 # necessary file resource
@@ -79,9 +79,9 @@ preinstall(){
 	apt_packages="python-dev libssl-dev "
 	yum_packages="python-devel openssl-devel"
 	$os_pm -y install $common_packages 
-	if [[ $os_pm=="apt-get" ]]; then
+	if [[ $os_pm == "apt-get" ]]; then
 		apt-get install -y $apt_packages 
-	elif [[ $os_pm=="yum" ]]; then
+	elif [[ $os_pm == "yum" ]]; then
 		yum install -y $yum_packages 
 	fi
 	mkdir -p $base
