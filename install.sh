@@ -92,7 +92,7 @@ preinstall(){
 		$s_wget ${file_names[$i]} ${file_urls[$i]}
 	done
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
-		wget -q --no-chech-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
+		wget -q --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
 
 	fi
 	if [[ ! -e $base/bbr.sh ]]; then
