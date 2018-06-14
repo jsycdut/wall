@@ -87,6 +87,7 @@ preinstall(){
 	info "Created directory $base"
 	cd $base
         info "Downloading essential files"
+	s_wget="wget -q -no-check-certificate -O"
 	for((i = 0; i<${#file_names[*]}; i++)); do
 		$s_wget ${file_names[$i]} ${file_urls[$i]}
 	done
