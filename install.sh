@@ -5,7 +5,7 @@ cat << -EOF
 # Author: jsycdut <jsycdut@gmail.com>
 # Desc:   Install Shadowsocks(Python) in Debian 8+, Ubuntu 16+
 #         Redhat 7+, CentOS 7+, Arch
-###################### Statement ################################
+####################### Statement ################################
 -EOF
 
 set -e
@@ -89,7 +89,8 @@ preinstall(){
 	s_wget="wget -q --no-check-certificate -O"
         info "Downloading essential files"
 	for((i = 0; i<${#file_names[*]};i++)); do
-		$s_wget ${file_names[$i]} ${file_urls[$i]}
+		#$s_wget ${file_names[$i]} ${file_urls[$i]}
+		wget -q --no-check-certificate -O ${file_names[$i]} ${file_urls[$i]}
 	done
 	if [[ ! -e $base/libsodium-1.0.16.tar.gz ]]; then
 		wget -q --no-check-certificate -O $libsodium_name.tar.gz $libsodium_url_backup
