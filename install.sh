@@ -36,6 +36,7 @@ check_os(){
 		os_name="rhel"
 		os_pm='yum'
 		os_version=`rpm -q centos-release | awk -F '-' '{print $3}'`
+		if [[ $os_version < 7 ]]; then  error "We do not support Cent OS 6 or lower OS" && exit 1; fi
 	fi
 	if [[ -z $os_name ]]; then
 		os_name=`cat /etc/*release | grep -i pretty_name= | awk -F '"' '{print $2}'`
