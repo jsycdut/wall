@@ -9,26 +9,43 @@ cat << -EOF
 -EOF
 
 set -e
+readonly BASE="~/shadowsocks-install"
+os_name=''
+os_version=''
+os_pm=''
+
+file_names=(
+"libsodium.tar.gz"
+"bbr.sh"
+"shadowsocks-2.9.1.zip"
+)
+
+file_urls=(
+"https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
+"https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
+"https://github.com/shadowsocks/shadowsocks/archive/2.9.1.zip"
+)
+
+file_backup_urls=(
+"http://listen-1.com:6294/libsodium-1.0.16.tar.gz"
+"http://listen-1.com:6294/bbr.sh"
+"http://listen-1.com:6294/shadowsocks-2.9.1-python-source-code.zip"
+)
+
 # notification functions
 info(){
   echo -e "\033[42;37m $@ \033[0m"
 }
 
-warn(){
-  echo -e "\033[43;37m $@ \033[0m"
-}
-
 error(){
   echo -e "\033[41;37m $@ \033[0m"
 }
+
+# check privilege
 if [[ $EUID -ne 0 ]]; then
   error "ERROR! You need root privilege to run this script!!!"
   exit 1
 fi
-
-os_name=''
-os_version=''
-os_pm=''
 
 # get  os's name and version
 check_os(){
@@ -50,27 +67,6 @@ check_os(){
   info "Package    Manager:"  $os_pm
 }
 
-# necessary file resource
-base="~/shadowsocks-install"
-
-file_names=(
-"libsodium.tar.gz"
-"bbr.sh"
-"shadowsocks-2.9.1.zip"
-)
-
-file_urls=(
-"https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
-"https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
-"https://github.com/shadowsocks/shadowsocks/archive/2.9.1.zip"
-)
-
-file_backup_urls=(
-"http://listen-1.com:6294/libsodium-1.0.16.tar.gz"
-"http://listen-1.com:6294/bbr.sh"
-"http://listen-1.com:6294/shadowsocks-2.9.1-python-source-code.zip"
-)
-
 preinstall(){
   $os_pm update
   common_packages="gcc make automake autoconf python python-setuptools
@@ -84,9 +80,9 @@ preinstall(){
   elif [[ $os_pm == "yum" ]]; then
     yum install -y $yum_packages 
   fi
-  mkdir -p $base
-  info "Created directory $base 🐇"
-  cd $base
+  mkdir -p $BASE
+  info "Created directory $BASE 🐇"
+  cd $BASE
   info "Downloading essential files, Please wait or drink a cup of coffee ☕"
   for((i = 0; i<${#file_names[*]}; i++)); do
     wget -q --no-check-certificate -O ${file_names[$i]} ${file_urls[$i]}
@@ -94,4 +90,4 @@ preinstall(){
 }
 check_os
 preinstall
-info `ls $base`
+info `ls $BASE`
