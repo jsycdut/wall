@@ -88,6 +88,8 @@ preinstall(){
     wget -q --no-check-certificate -O ${file_names[$i]} ${file_urls[$i]}
   done
 }
-check_os
-preinstall
-info `ls $BASE`
+
+install(){
+  cd $BASE
+	tar zxf ${file_names[0]}
+}
