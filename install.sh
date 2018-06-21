@@ -92,4 +92,10 @@ preinstall(){
 install(){
   cd $BASE
 	tar zxf ${file_names[0]}
+  cd libsodium-1.0.16 && ./configure --prefix=/usr && make && make install 
+	if [[ $? -ne 0 ]]; then error "ERROR! Install libsodium failed! Script Abort..."; fi
+	unzip -q 2.9.1.zip && cd shadowsocks-2.9.1
+  python setup.py --install 
+  	
+					
 }
