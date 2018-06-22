@@ -93,9 +93,10 @@ install(){
   cd $BASE
 	tar zxf ${file_names[0]}
   cd libsodium-1.0.16 && ./configure --prefix=/usr && make && make install 
-	if [[ $? -ne 0 ]]; then error "ERROR! Install libsodium failed! Script Abort..."; fi
-	unzip -q 2.9.1.zip && cd shadowsocks-2.9.1
+	if [[ $? -ne 0 ]]; then error "ERROR! Install libsodium failed! Script Aborted..."; fi
+	unzip -q  -d shadowsocks 2.9.1.zip && cd shadowsocks
   python setup.py --install 
+	if [[ $? -ne 0 ]]; then error "ERROR! Install shadowsocks failed! Scritp Aborted..."; fi
   	
 					
 }
