@@ -3,7 +3,14 @@
 
 本项目用于在不同的Linux上安装Python版本的shadowsocks。
 ## 项目进度
-20%，敬请期待完成之日。
+- [x] 安装shadowsokcs
+- [x] Debian
+- [x] Ubuntu
+- [ ] Cent OS && RHEL
+- [ ] Arch
+- [ ] 开机自启
+- [ ] 宕机自启
+- [ ] iptables规则
 
 ## 项目文件清单
 
