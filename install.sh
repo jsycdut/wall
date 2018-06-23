@@ -126,6 +126,11 @@ config(){
 
 launch(){
   sudo ssserver -c /etc/shadowsocks.json -d start
+	if [[ $? -eq 0 ]]; then
+		info "Shadowsocks started!"
+  else
+		error "Shadowsocks started failed!"
+	fi
 }
 
 check_os
