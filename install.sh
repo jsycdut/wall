@@ -124,7 +124,12 @@ config(){
 	EOF
 }
 
+launch(){
+  sudo ssserver -c /etc/shadowsocks.json -d start
+}
+
 check_os
 preinstall
 config
 install
+launch
