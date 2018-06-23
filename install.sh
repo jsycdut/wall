@@ -29,7 +29,7 @@ file_urls=(
 file_backup_urls=(
 "http://listen-1.com:6294/libsodium-1.0.16.tar.gz"
 "http://listen-1.com:6294/bbr.sh"
-"http://listen-1.com:6294/shadowsocks-2.9.1-python-source-code.zip"
+"http://listen-1.com:6294/2.9.1.zip"
 )
 
 # notification functions
@@ -87,16 +87,45 @@ preinstall(){
   for((i = 0; i<${#file_names[*]}; i++)); do
     wget -q --no-check-certificate -O ${file_names[$i]} ${file_urls[$i]}
   done
+	for((i=0; i<${#file_names[*]}; i++)); do
+		if [[ ! -e ${file_names[$i]} ]]; then
+		  wget -q --no-check-certificate -O ${file_names[$i]} ${file_backup_urls[$i]}
+		fi
+	done
 }
 
 install(){
   cd $BASE
 	tar zxf ${file_names[0]}
   cd libsodium-1.0.16 && ./configure --prefix=/usr && make && make install 
-	if [[ $? -ne 0 ]]; then error "ERROR! Install libsodium failed! Script Aborted..."; fi
-	unzip -q  -d shadowsocks 2.9.1.zip && cd shadowsocks
-  python setup.py --install 
-	if [[ $? -ne 0 ]]; then error "ERROR! Install shadowsocks failed! Scritp Aborted..."; fi
-  	
-					
+	if [[ $? -ne 0 ]]; then 
+	  error "ERROR! Install libsodium failed! Script Aborted..."
+	else
+		info "Install libsodium succeeded!"
+	fi
+	unzip -q  -d shadowsocks 2.9.1.zip && cd shadowsocks/shadowsocks-2.9.1 
+  python setup.py --install --record $BASE/shadowsocks_install.lg 
+	if [[ $? -ne 0 ]]; then
+	  error "ERROR! Install shadowsocks failed! Scritp Aborted..."
+	else
+		info "Install shadowsocks succeeded!"
+	fi
 }
+
+config(){
+	cat > /etc/shadowsocks.json <<-EOF 
+	{
+					"server":"0.0.0.0",
+					"server_port":8388,
+					"password":"https://github.com/jsycdut",
+					"timeout":300,
+					"method":"aes-256-cfb",
+					"fast_open":true
+	}
+	EOF
+}
+
+check_os
+preinstall
+config
+install
