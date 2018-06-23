@@ -133,8 +133,13 @@ launch(){
 	fi
 }
 
+show_shadowsocks_info(){
+	info < cat /etc/shadowsocks.json
+}
+
 check_os
 preinstall
 config
 install
 launch
+show_shadowsocks_info
