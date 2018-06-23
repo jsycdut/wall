@@ -9,7 +9,7 @@ cat << -EOF
 -EOF
 
 set -e
-readonly BASE="~/shadowsocks-install"
+readonly BASE="`pwd`/shadowsocks-install"
 os_name=''
 os_version=''
 os_pm=''
