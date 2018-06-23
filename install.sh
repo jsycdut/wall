@@ -96,14 +96,14 @@ preinstall(){
 
 install(){
   cd $BASE
-	tar zxf ${file_names[0]}
+	sudo tar zxf ${file_names[0]}
   cd libsodium-1.0.16 && ./configure --prefix=/usr && make && make install 
 	if [[ $? -ne 0 ]]; then 
 	  error "ERROR! Install libsodium failed! Script Aborted..."
 	else
 		info "Install libsodium succeeded!"
 	fi
-	unzip -q  -d shadowsocks $BASE/shadowsocks-2.9.1.zip && cd $BASE/shadowsocks/shadowsocks-2.9.1 
+	sudo unzip -q  -d shadowsocks $BASE/shadowsocks-2.9.1.zip && cd $BASE/shadowsocks/shadowsocks-2.9.1 
   python setup.py --install --record $BASE/shadowsocks_install.lg 
 	if [[ $? -ne 0 ]]; then
 	  error "ERROR! Install shadowsocks failed! Scritp Aborted..."
