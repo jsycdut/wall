@@ -103,7 +103,7 @@ install(){
 	else
 		info "Install libsodium succeeded!"
 	fi
-	unzip -q  -d shadowsocks shadowsocks-2.9.1zip && cd shadowsocks/shadowsocks-2.9.1 
+	unzip -q  -d shadowsocks shadowsocks-2.9.1.zip && cd shadowsocks/shadowsocks-2.9.1 
   python setup.py --install --record $BASE/shadowsocks_install.lg 
 	if [[ $? -ne 0 ]]; then
 	  error "ERROR! Install shadowsocks failed! Scritp Aborted..."
