@@ -29,7 +29,7 @@ file_urls=(
 file_backup_urls=(
 "http://listen-1.com:6294/libsodium-1.0.16.tar.gz"
 "http://listen-1.com:6294/bbr.sh"
-"http://listen-1.com:6294/2.9.1.zip"
+"http://listen-1.com:6294/shadowsocks-2.9.1.zip"
 )
 
 # notification functions
@@ -103,7 +103,7 @@ install(){
 	else
 		info "Install libsodium succeeded!"
 	fi
-	unzip -q  -d shadowsocks 2.9.1.zip && cd shadowsocks/shadowsocks-2.9.1 
+	unzip -q  -d shadowsocks shadowsocks-2.9.1zip && cd shadowsocks/shadowsocks-2.9.1 
   python setup.py --install --record $BASE/shadowsocks_install.lg 
 	if [[ $? -ne 0 ]]; then
 	  error "ERROR! Install shadowsocks failed! Scritp Aborted..."
