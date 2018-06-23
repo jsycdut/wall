@@ -134,7 +134,7 @@ launch(){
 }
 
 show_shadowsocks_info(){
-	cat < -EOF
+	cat <<-EOF
 	`info Server IP:   $IP`
 	`info Server Port: 8388`
 	`info Password:    https://github.com/jsycdut`
