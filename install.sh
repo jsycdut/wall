@@ -134,7 +134,12 @@ launch(){
 }
 
 show_shadowsocks_info(){
-	info < cat /etc/shadowsocks.json
+	cat < -EOF
+	`info Server IP:   $IP`
+	`info Server Port: 8388`
+	`info Password:    https://github.com/jsycdut`
+	`info Method:      aes-256-cfb`
+	EOF
 }
 
 check_os
