@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+source lib.sh
 cat << -EOF
 ####################### Statement ################################
 # Author: jsycdut <jsycdut@gmail.com>
@@ -9,38 +9,6 @@ cat << -EOF
 -EOF
 
 set -e
-readonly BASE="`pwd`/shadowsocks-install"
-os_name=''
-os_version=''
-os_pm=''
-
-file_names=(
-"libsodium.tar.gz"
-"bbr.sh"
-"shadowsocks-2.9.1.zip"
-)
-
-file_urls=(
-"https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
-"https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/bbr.sh"
-"https://github.com/shadowsocks/shadowsocks/archive/2.9.1.zip"
-)
-
-file_backup_urls=(
-"http://listen-1.com:6294/libsodium-1.0.16.tar.gz"
-"http://listen-1.com:6294/bbr.sh"
-"http://listen-1.com:6294/shadowsocks-2.9.1.zip"
-)
-
-# notification functions
-info(){
-  echo -e "\033[42;37m $@ \033[0m"
-}
-
-error(){
-  echo -e "\033[41;37m $@ \033[0m"
-}
-
 # check privilege
 if [[ $EUID -ne 0 ]]; then
   error "ERROR! You need root privilege to run this script!!!"
@@ -80,9 +48,9 @@ preinstall(){
   elif [[ $os_pm == "yum" ]]; then
     yum install -y $yum_packages 
   fi
-  mkdir -p $BASE
-  info "Created directory $BASE 🐇"
-  cd $BASE
+  mkdir -p $base
+  info "Created directory $base 🐇"
+  cd $base
   info "Downloading essential files, Please wait or drink a cup of coffee ☕"
   for((i = 0; i<${#file_names[*]}; i++)); do
     wget -q --no-check-certificate -O ${file_names[$i]} ${file_urls[$i]}
@@ -95,19 +63,19 @@ preinstall(){
 }
 
 install(){
-  cd $BASE && sudo tar zxf ${file_names[0]}
+  cd $base && sudo tar zxf ${file_names[0]}
   cd libsodium-1.0.16 && ./configure --prefix=/usr && make && make install 
 	if [[ $? -ne 0 ]]; then 
 	  error "ERROR! Install libsodium failed! Script Aborted..."
 	else
-		info "Install libsodium succeeded!"
+		info "Good! Install libsodium succeeded!"
 	fi
-	cd $BASE && sudo unzip -q  -d shadowsocks $BASE/shadowsocks-2.9.1.zip && cd $BASE/shadowsocks/shadowsocks-2.9.1 
+	cd $base && sudo unzip -q  -d shadowsocks $base/shadowsocks-2.9.1.zip && cd $base/shadowsocks/shadowsocks-2.9.1 
   python setup.py install 
 	if [[ $? -ne 0 ]]; then
 	  error "ERROR! Install shadowsocks failed! Scritp Aborted..."
 	else
-		info "Install shadowsocks succeeded!"
+		info "Fantastic! Install shadowsocks succeeded!"
 	fi
 }
 
@@ -119,17 +87,18 @@ config(){
 					"password":"https://github.com/jsycdut",
 					"timeout":300,
 					"method":"aes-256-cfb",
-					"fast_open":true
+					"fast_open":true,
+					"workers":5
 	}
 	EOF
 }
 
 launch(){
-  sudo ssserver -c /etc/shadowsocks.json -d start
+  sudo ssserver -qq -c /etc/shadowsocks.json -d start
 	if [[ $? -eq 0 ]]; then
-		info "Shadowsocks started!"
+		info "Shadowsocks started! Enjoy yourself!"
   else
-		error "Shadowsocks started failed!"
+		error "Failed to start Shadowsocks! Aborted!"
 	fi
 }
 
