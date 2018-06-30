@@ -24,11 +24,11 @@ file_backup_urls=(
 
 # notification functions
 info(){
-  echo -e "\033[42;37m $@ \033[0m"
+  echo -e "\033[32m $@ \033[0m"
 }
 
 error(){
-  echo -e "\033[41;37m $@ \033[0m"
+  echo -e "\033[31m $@ \033[0m"
 }
 get_ip(){
   ip=$( ifconfig | grep "inet addr" | grep -v ":10 \|:127" | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}' )
