@@ -113,6 +113,7 @@ show_shadowsocks_info(){
 
 check_os
 preinstall
+get_ip
 config
 install
 launch

@@ -32,4 +32,5 @@ error(){
 }
 get_ip(){
   ip=$( ifconfig | grep "inet " | grep -v ' 10\| 127\| 169' | awk -F " " '{print $2}'  )
+	echo $ip
 }
