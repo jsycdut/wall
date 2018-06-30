@@ -12,6 +12,23 @@
 - [ ] SystemD for Shadowsocks
 - [ ] iptables规则
 
+## 使用方法
+```bash
+git clone https://github.com/jsycdut/shadowsocks-install-scripts
+cd shadowsocks-install-scripts
+sudo ./install.sh
+```
+
+脚本会自动在你的Linux上安装Shadowsocks的server端，然后安装脚本提示server端的IP，端口，密码和加密方式等信息，显示效果如下，这里除了IP和你的Linux服务器有关，其余全都是预设的值。
+
+```
+Shadowsocks started! Enjoy yourself!
+Your Shadowsocks Serverside Information as below
+Server IP:   xxxx
+Server Port: 8388
+Password:    https://github.com/jsycdut
+Method:      aes-256-cfb
+```
 ## 安装原理说明
 **install.sh**
 
