@@ -30,6 +30,31 @@ info(){
 error(){
   echo -e "\033[31m$@\033[0m"
 }
+
 get_ip(){
   ip=$( ifconfig | grep "inet addr" | grep -v ":10 \|:127" | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}' )
+}
+
+config(){
+	cat > /etc/shadowsocks.json <<-EOF 
+	{
+					"server":"0.0.0.0",
+					"server_port":8388,
+					"password":"https://github.com/jsycdut",
+					"timeout":300,
+					"method":"aes-256-cfb",
+					"fast_open":true,
+					"workers":5
+	}
+	EOF
+}
+
+show_shadowsocks_info(){
+	cat <<-EOF
+	`info "Your Shadowsocks Serverside Information as below"`
+	`info "Server IP:   $ip"`
+	`info "Server Port: 8388"`
+	`info "Password:    https://github.com/jsycdut"`
+	`info "Method:      aes-256-cfb"`
+	EOF
 }

@@ -79,20 +79,7 @@ install(){
 	fi
 }
 
-config(){
-	cat > /etc/shadowsocks.json <<-EOF 
-	{
-					"server":"0.0.0.0",
-					"server_port":8388,
-					"password":"https://github.com/jsycdut",
-					"timeout":300,
-					"method":"aes-256-cfb",
-					"fast_open":true,
-					"workers":5
-	}
-	EOF
-}
-
+# launch shadowsocks in daemon mode
 launch(){
   sudo ssserver -qq -c /etc/shadowsocks.json -d start
 	if [[ $? -eq 0 ]]; then
@@ -100,16 +87,6 @@ launch(){
   else
 		error "Failed to start Shadowsocks! Aborted!"
 	fi
-}
-
-show_shadowsocks_info(){
-	cat <<-EOF
-	`info "Your Shadowsocks Serverside Information as below"`
-	`info "Server IP:   $ip"`
-	`info "Server Port: 8388"`
-	`info "Password:    https://github.com/jsycdut"`
-	`info "Method:      aes-256-cfb"`
-	EOF
 }
 
 check_os

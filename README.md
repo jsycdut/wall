@@ -13,13 +13,14 @@
 - [ ] iptables规则
 
 ## 使用方法
+**只需要顺序执行如下命令即可完成Shadowsocks的安装**
 ```bash
 git clone https://github.com/jsycdut/shadowsocks-install-scripts
 cd shadowsocks-install-scripts
 sudo ./install.sh
 ```
-
-脚本会自动在你的Linux上安装Shadowsocks的server端，然后安装脚本提示server端的IP，端口，密码和加密方式等信息，显示效果如下，这里除了IP和你的Linux服务器有关，其余全都是预设的值。
+**注意脚本需要root权限来运行。**
+脚本会自动在你的Linux上安装Shadowsocks的server端，安装完成后脚本提示server端的IP，端口，密码和加密方式等信息，显示效果如下，这里除了IP和你的Linux服务器有关，其余全都是预设的值。
 
 ```
 Shadowsocks started! Enjoy yourself!
