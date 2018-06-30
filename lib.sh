@@ -31,5 +31,5 @@ error(){
   echo -e "\033[41;37m $@ \033[0m"
 }
 get_ip(){
-  
+  ip=$( ifconfig | grep "inet " | grep -v ' 10\| 127\| 169' | awk -F " " '{print $2}'  )
 }
