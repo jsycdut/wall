@@ -104,6 +104,7 @@ launch(){
 
 show_shadowsocks_info(){
 	cat <<-EOF
+	`info "Your Shadowsocks Serverside Information as below"`
 	`info "Server IP:   $ip"`
 	`info "Server Port: 8388"`
 	`info "Password:    https://github.com/jsycdut"`
