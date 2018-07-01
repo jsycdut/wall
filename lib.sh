@@ -32,7 +32,11 @@ error(){
 }
 
 get_ip(){
-  ip=$( ifconfig | grep "inet addr" | grep -v ":10 \|:127" | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}' )
+	if [[ $os_pm=='apt' ]]; then
+    ip=$( ifconfig | grep '.*inet[[:space:]]addr.*' | grep -v '.*addr:127.*\|.*addr:10\..*' | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}' )
+	elif [[ $os_pm=='yum' ]]; then
+	  ip=$( ifconfig | grep '.*inet[[:space:]]' | grep -v '[[:space:]]127\|[[:space:]]10\.' | awk -F' ' '{print $2}' ) 
+	fi
 }
 
 config(){

@@ -41,7 +41,7 @@ preinstall(){
   wget unzip tar openssl libtool curl"
   # same functional package got different name in different paltform
   apt_packages="python-dev libssl-dev "
-  yum_packages="python-devel openssl-devel"
+  yum_packages="python-devel openssl-devel net-tools"
   $os_pm -y install $common_packages 
   if [[ $os_pm == "apt-get" ]]; then
     apt-get install -y $apt_packages 
