@@ -5,9 +5,9 @@
 
 ## 项目进度
 - [x] 安装Shadowsokcs
-- [x] Debian
-- [x] Ubuntu
-- [ ] Cent OS && RHEL
+- [x] Debian 8 && Debian 9
+- [x] Ubuntu 14.04 && Ubuntu 16.04
+- [ ] Cent OS 6
 - [ ] Arch
 - [ ] SystemD for Shadowsocks
 - [ ] iptables规则
