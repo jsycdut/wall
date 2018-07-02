@@ -32,9 +32,9 @@ error(){
 }
 
 get_ip(){
-	if [[ $os_pm=='apt' ]]; then
+	if [[ $os_pm == 'apt-get' ]]; then
     ip=$( ifconfig | grep '.*inet[[:space:]]addr.*' | grep -v '.*addr:127.*\|.*addr:10\..*' | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}' )
-	elif [[ $os_pm=='yum' ]]; then
+	elif [[ $os_pm == 'yum' ]]; then
 	  ip=$( ifconfig | grep '.*inet[[:space:]]' | grep -v '[[:space:]]127\|[[:space:]]10\.' | awk -F' ' '{print $2}' ) 
 	fi
 }
