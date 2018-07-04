@@ -42,13 +42,13 @@ get_ip(){
 config(){
 	cat > /etc/shadowsocks.json <<-EOF 
 	{
-					"server":"0.0.0.0",
-					"server_port":8388,
-					"password":"https://github.com/jsycdut",
-					"timeout":300,
-					"method":"aes-256-cfb",
-					"fast_open":true,
-					"workers":5
+	  "server":"0.0.0.0",
+	  "server_port":8388,
+	  "password":"https://github.com/jsycdut",
+	  "timeout":300,
+	  "method":"aes-256-cfb",
+	  "fast_open":true,
+	  "workers":5
 	}
 	EOF
 }
