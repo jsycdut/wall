@@ -1,5 +1,5 @@
 readonly base="`pwd`/shadowsocks-install"
-os_name_by_local=''
+os_name=''
 os_version=''
 os_pm=''
 ip=''
