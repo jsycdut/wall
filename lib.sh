@@ -39,6 +39,9 @@ get_ip(){
 	fi
 }
 
+get_ip_by_api(){
+				ip=$(curl https://httpbin.org/ip | awk -F '"' '{print $4}')
+}
 config(){
 	cat > /etc/shadowsocks.json <<-EOF 
 	{

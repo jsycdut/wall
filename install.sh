@@ -91,7 +91,8 @@ launch(){
 
 check_os
 preinstall
-get_ip
+#get_ip
+get_ip_by_api
 config
 install
 launch
