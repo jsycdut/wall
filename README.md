@@ -34,7 +34,7 @@ Password:    https://github.com/jsycdut
 Method:      aes-256-cfb
 ```
 ## 安装原理说明
-**install.sh**
+* `install.sh`
 
 1. 判断Linux的类别和版本，即RHEL系列还是Debian系列，前者包括Redhat、CentOS，后者包括Debian、Ubuntu，这是为了弄明白工作环境，因为运行Python版本的shadowsocks需要一些依赖，安装这个依赖的一个办法是使用包管理器，包管理器	取决于Linux发行版，比如RHEL系列的使用yum，Debian系列的使用apt-get或者apt。
 
@@ -46,7 +46,7 @@ Method:      aes-256-cfb
 
 5. 清理系统安装文件
 
-**add_user.sh**
+* `add_user.sh`
 
 1. 读取port和password数组的内容
 2. 利用脚本添加shadowsocks用户
