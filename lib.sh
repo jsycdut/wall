@@ -1,3 +1,4 @@
+#! /bin/bash
 readonly base="`pwd`/shadowsocks-install"
 os_name=''
 os_version=''
@@ -42,8 +43,9 @@ get_ip(){
 get_ip_by_api(){
   ip=$(curl https://httpbin.org/ip | awk -F '"' '{print $4}')
 }
+
 config(){
-  cat > /etc/shadowsocks.json <<-EOF 
+  cat > /etc/shadowsocks.json << EOF 
   {
     "server":"0.0.0.0",
     "server_port":8388,
@@ -53,15 +55,15 @@ config(){
     "fast_open":true,
     "workers":5
   }
-  EOF
+EOF
 }
 
 show_shadowsocks_info(){
-  cat <<-EOF
+  cat << EOF
   `info "Your Shadowsocks Serverside Information shows as below"`
   `info "Server IP:  " $ip`
   `info "Server Port: 8388"`
   `info "Password:    https://github.com/jsycdut"`
   `info "Method:      aes-256-cfb"`
-  EOF
+EOF
 }

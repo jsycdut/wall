@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 source lib.sh
-cat << -EOF
+cat << EOF
 ####################### Statement ################################
 # Author: jsycdut <jsycdut@gmail.com>
 # Desc:   Install Shadowsocks(Python) in Debian 8+, Ubuntu 16+
 #         Redhat 7+, CentOS 7+, Arch
 ####################### Statement ################################
--EOF
+EOF
 
 set -e
 # check privilege
