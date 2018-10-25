@@ -20,14 +20,14 @@ bandwidth=(
 
 # add users automatically by using a loop
 adduser(){
-	if [[ ${#ports[@]} -ne ${#passwords[@]} ]]; then
-		echo 'ports和passwords两数组长度不匹配'
-		exit 1
-	fi
+  if [[ ${#ports[@]} -ne ${#passwords[@]} ]]; then
+    echo 'ports和passwords两数组长度不匹配'
+    exit 1
+  fi
 
-	for (( i = 0; i < ${#ports[@]}; i++ )); 
-	do
-		cd /home/jsy/shadowsocks/ss-bash/ && ./ssadmin.sh add ${ports[$i]} ${passwords[$i]} 50GB
-	done
+  for (( i = 0; i < ${#ports[@]}; i++ )); 
+  do
+    cd /home/jsy/shadowsocks/ss-bash/ && ./ssadmin.sh add ${ports[$i]} ${passwords[$i]} 50GB
+  done
 }
 adduser

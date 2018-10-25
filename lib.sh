@@ -32,36 +32,36 @@ error(){
 }
 
 get_ip(){
-	if [[ $os_pm == 'apt-get' ]]; then
+  if [[ $os_pm == 'apt-get' ]]; then
     ip=$( ifconfig | grep '.*inet[[:space:]]addr.*' | grep -v '.*addr:127.*\|.*addr:10\..*' | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}' )
-	elif [[ $os_pm == 'yum' ]]; then
-	  ip=$( ifconfig | grep '.*inet[[:space:]]' | grep -v '[[:space:]]127\|[[:space:]]10\.' | awk -F' ' '{print $2}' ) 
-	fi
+  elif [[ $os_pm == 'yum' ]]; then
+    ip=$( ifconfig | grep '.*inet[[:space:]]' | grep -v '[[:space:]]127\|[[:space:]]10\.' | awk -F' ' '{print $2}' ) 
+  fi
 }
 
 get_ip_by_api(){
   ip=$(curl https://httpbin.org/ip | awk -F '"' '{print $4}')
 }
 config(){
-	cat > /etc/shadowsocks.json <<-EOF 
+  cat > /etc/shadowsocks.json <<-EOF 
   {
-	  "server":"0.0.0.0",
-	  "server_port":8388,
-	  "password":"https://github.com/jsycdut",
-	  "timeout":300,
-	  "method":"aes-256-cfb",
-	  "fast_open":true,
-	  "workers":5
+    "server":"0.0.0.0",
+    "server_port":8388,
+    "password":"https://github.com/jsycdut",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open":true,
+    "workers":5
   }
   EOF
 }
 
 show_shadowsocks_info(){
-	cat <<-EOF
-	`info "Your Shadowsocks Serverside Information shows as below"`
-	`info "Server IP:  " $ip`
-	`info "Server Port: 8388"`
-	`info "Password:    https://github.com/jsycdut"`
-	`info "Method:      aes-256-cfb"`
-	EOF
+  cat <<-EOF
+  `info "Your Shadowsocks Serverside Information shows as below"`
+  `info "Server IP:  " $ip`
+  `info "Server Port: 8388"`
+  `info "Password:    https://github.com/jsycdut"`
+  `info "Method:      aes-256-cfb"`
+  EOF
 }
