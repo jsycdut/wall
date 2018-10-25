@@ -60,10 +60,12 @@ EOF
 
 show_shadowsocks_info(){
   cat << EOF
-  `info "Your Shadowsocks Serverside Information shows as below"`
-  `info "Server IP:  " $ip`
-  `info "Server Port: 8388"`
-  `info "Password:    https://github.com/jsycdut"`
-  `info "Method:      aes-256-cfb"`
+`info  `
+`info "Your Shadowsocks Serverside Information shows as below (๑¯◡¯๑)"`
+`info "Server IP:  " $ip`
+`info "Server Port: 8388"`
+`info "Password:    https://github.com/jsycdut"`
+`info "Method:      aes-256-cfb"`
+🌈 good day or bad day, make it a valuable day.
 EOF
 }
