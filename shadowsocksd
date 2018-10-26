@@ -60,7 +60,7 @@ case "$1" in
     do_$1
     ;;
   *)
-    echo -e "\033[32m" Usage: `basename $0` start|stop|restart|status "\033[0m"
+    echo -e "\033[32m" "Usage: service `basename $0` start|stop|restart|status" "\033[0m"
     ;;
  esac
 
