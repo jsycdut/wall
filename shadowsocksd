@@ -16,15 +16,13 @@
 [ ! -d "/var/run/shadowsocks" ] && mkdir /var/run/shadowsocks
 [ ! -d "/var/lock/subsys/shadowsocks" ] && mkdir /var/lock/subsys/shadowsocks
 SHADOWSOCKS_LOCK_FILE=/var/lock/subsys/shadowsocks/shadowsocksd
-SHADOWSOCKS_PID_FILE=/var/run/shadowsocks/shadowsocks.pid
 RETVAL=0
 
 do_start(){
   if [ -f "$SHADOWSOCKS_LOCK_FILE" ]; then
     echo -e "\033[32m" "Shadowsocks has already been started " "\033[0m"
   else
-    nohup /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start > /dev/null 2>&1 &
-    echo $! > $SHADOWSOCKS_PID_FILE
+    /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start > /dev/null 2>&1
     touch $SHADOWSOCKS_LOCK_FILE
     echo -e "\033[32m" Shadowsocks started "\033[32m"
   fi
@@ -34,9 +32,8 @@ do_stop(){
   if [ ! -f "$SHADOWSOCKS_LOCK_FILE" ]; then
     echo -e "\033[32m" Shadowsocks has already stopped "\033[0m"
   else
-    kill $(cat $SHADOWSOCKS_PID_FILE)
+    /usr/local/bin/ssserver -d stop > /dev/null 2>&1
     [ $? -ne 0 ] && RETVAL=1
-    rm -f $SHADOWSOCKS_PID_FILE
     rm -f $SHADOWSOCKS_LOCK_FILE
     echo "\033[31m" Shadowsocks stopped "\033[0m"
   fi
@@ -65,4 +62,3 @@ case "$1" in
  esac
 
  exit $RETVAL
-
