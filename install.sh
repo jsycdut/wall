@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 source lib.sh
-cat << -EOF
+cat << EOF
 ####################### Statement ################################
 # Author: jsycdut <jsycdut@gmail.com>
 # Desc:   Install Shadowsocks(Python) in Debian 8+, Ubuntu 16+
 #         Redhat 7+, CentOS 7+, Arch
 ####################### Statement ################################
--EOF
+EOF
 
 set -e
 # check privilege
@@ -55,38 +55,38 @@ preinstall(){
   for((i = 0; i<${#file_names[*]}; i++)); do
     wget -q --no-check-certificate -O ${file_names[$i]} ${file_urls[$i]}
   done
-	for((i=0; i<${#file_names[*]}; i++)); do
-		if [[ ! -e ${file_names[$i]} ]]; then
-		  wget -q --no-check-certificate -O ${file_names[$i]} ${file_backup_urls[$i]}
-		fi
-	done
+  for((i=0; i<${#file_names[*]}; i++)); do
+    if [[ ! -e ${file_names[$i]} ]]; then
+      wget -q --no-check-certificate -O ${file_names[$i]} ${file_backup_urls[$i]}
+    fi
+  done
 }
 
 install(){
   cd $base && sudo tar zxf ${file_names[0]}
   cd libsodium-1.0.16 && ./configure --prefix=/usr && make && make install 
-	if [[ $? -ne 0 ]]; then 
-	  error "ERROR! Install libsodium failed! Script Aborted..."
-	else
-		info "Good! Install libsodium succeeded!"
-	fi
-	cd $base && sudo unzip -q  -d shadowsocks $base/shadowsocks-2.9.1.zip && cd $base/shadowsocks/shadowsocks-2.9.1 
+  if [[ $? -ne 0 ]]; then 
+    error "ERROR! Install libsodium failed! Script Aborted..."
+  else
+    info "Good! Install libsodium succeeded!"
+  fi
+  cd $base && sudo unzip -q  -d shadowsocks $base/shadowsocks-2.9.1.zip && cd $base/shadowsocks/shadowsocks-2.9.1 
   python setup.py install 
-	if [[ $? -ne 0 ]]; then
-	  error "ERROR! Install shadowsocks failed! Scritp Aborted..."
-	else
-		info "Fantastic! Install shadowsocks succeeded!"
-	fi
+  if [[ $? -ne 0 ]]; then
+    error "ERROR! Install shadowsocks failed! Scritp Aborted..."
+  else
+    info "Fantastic! Install shadowsocks succeeded!"
+  fi
 }
 
 # launch shadowsocks in daemon mode
 launch(){
-  sudo ssserver -qq -c /etc/shadowsocks.json -d start
-	if [[ $? -eq 0 ]]; then
-		info "Shadowsocks started! Enjoy yourself!"
+  sudo ssserver -qq -c /etc/shadowsocks.json -d start > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    info "Shadowsocks started! Enjoy yourself!"
   else
-		error "Failed to start Shadowsocks! Aborted!"
-	fi
+    error "Failed to start Shadowsocks! Aborted!"
+  fi
 }
 
 check_os
