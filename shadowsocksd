@@ -39,6 +39,7 @@ do_stop(){
     rm -f $SHADOWSOCKS_PID_FILE
     rm -f $SHADOWSOCKS_LOCK_FILE
     echo "\033[31m" Shadowsocks stopped "\033[0m"
+  fi
 }
 
 do_restart(){
