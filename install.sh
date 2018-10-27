@@ -8,7 +8,7 @@ cat << EOF
 ####################### Statement ################################
 EOF
 
-set -e
+#set -e
 # check privilege
 if [[ $EUID -ne 0 ]]; then
   error "ERROR! You need root privilege to run this script!!!"
@@ -79,6 +79,33 @@ install(){
   fi
 }
 
+install_service(){
+  local systemd=$(ps -p 1 | grep systemd && echo "systemd")
+  if [ -n "$systemd" ]; then
+    cat > "/lib/systemd/system/shadowsocks.service" << EOF
+[Unit]
+Description=Shadowsocks systemd service
+
+[Service]
+Type=fork
+ExecStart=/usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
+ExecStop=/usr/local/bin/ssserver -d stop
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  else
+    cp shadowsocksd /etc/init.d
+    ln -s /etc/init.d/shadowsocksd  /etc/rc0.d/K78shadowsocksd
+    ln -s /etc/init.d/shadowsocksd  /etc/rc1.d/K78shadowsocksd
+    ln -s /etc/init.d/shadowsocksd  /etc/rc2.d/S55shadowsocksd
+    ln -s /etc/init.d/shadowsocksd  /etc/rc3.d/S55shadowsocksd
+    ln -s /etc/init.d/shadowsocksd  /etc/rc4.d/S55shadowsocksd
+    ln -s /etc/init.d/shadowsocksd  /etc/rc5.d/S55shadowsocksd
+    ln -s /etc/init.d/shadowsocksd  /etc/rc6.d/K78shadowsocksd
+  fi
+}
+
 # launch shadowsocks in daemon mode
 launch(){
   sudo ssserver -qq -c /etc/shadowsocks.json -d start > /dev/null 2>&1
@@ -95,5 +122,6 @@ preinstall
 get_ip_by_api
 config
 install
+install_service
 launch
 show_shadowsocks_info
