@@ -22,7 +22,7 @@ do_start(){
   if [ -f "$SHADOWSOCKS_LOCK_FILE" ]; then
     echo -e "\033[32m" "Shadowsocks has already been started " "\033[0m"
   else
-    /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start > /dev/null 2>&1
+    /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start 
     touch $SHADOWSOCKS_LOCK_FILE
     echo -e "\033[32m" Shadowsocks started "\033[32m"
   fi
@@ -32,7 +32,7 @@ do_stop(){
   if [ ! -f "$SHADOWSOCKS_LOCK_FILE" ]; then
     echo -e "\033[32m" Shadowsocks has already stopped "\033[0m"
   else
-    /usr/local/bin/ssserver -d stop > /dev/null 2>&1
+    /usr/local/bin/ssserver -d stop 
     [ $? -ne 0 ] && RETVAL=1
     rm -f $SHADOWSOCKS_LOCK_FILE
     echo "\033[31m" Shadowsocks stopped "\033[0m"
