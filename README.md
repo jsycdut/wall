@@ -12,7 +12,8 @@
 - [x] Cent OS 6 
 - [x] Cent OS 7
 - [ ] Arch
-- [ ] SystemD for Shadowsocks
+- [x] Systemd for Shadowsocks
+- [x] SysVinit for shadowsocks
 - [ ] iptables规则
 
 ## 使用方法
