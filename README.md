@@ -54,4 +54,14 @@ Method:      aes-256-cfb
 
 ## 关于启动脚本
 
-一般而言，安装好了shadowsocks，然后就可以挂进程运行了，但是我个人担忧万一这个进程挂了咋办？或者说如果系统重启了，那是不是要很麻烦的去手动重启shadowsocks进程，而解决这一切的办法就是为shadowsocks整个启动脚本，（或者写个crontab定期重启进程，但是开机执行似乎还是没法），在这里我选择了写个服务的方式，Linux的启动脚本经历了sysVinit，upstart，以及现在的systemd，在现在很多版本的Linux的系统并行的情况下，我选择了只支持使用systemd作为启动脚本的Linux操作系统，Sorry guys！这些系统包括Debian 8+，Ubuntu 16.04+，CentOS 7+，如果你的系统版本不在这之列，脚本将不会安装shadowsocks启动服务，你可以根据你现在系统版本自己动手。
+启动脚本用于开机启动shadowsocks服务运行，另外一方面支持使用service命令来管理shadowsocks的启动，结束，重启以及状态查询
+```
+# 针对sysvinit启动的系统
+service shadowsocksd {start|stop|restart|status}
+
+# 针对systemd启动的系统
+service shadowsocks {start|stop|restart|status} 或者 systemctl {start|stop|restart|status} shadowsocks
+```
+在安装脚本中，对当前Linux的启动系统进行了判断，同时支持了sysvinit和systemd两种，安装完成后使用上面对应的命令即可进行服务的管理，一般Ubuntu 15.04+， CentOS 7+， Debian 8+等系统都是systemd，之前的系统都可以使用sysvinit。
+
+如何判断当前是sysvinit还是systemd？ 使用`ps -p 1 | grep systemd && grep "systemd"`此条命令即可，如果输出systemd，那么当前系统就是由systemd启动的，如果没有任何输出，那么就不是systemd，就可以认定为sysvinit（其实还有一种upstart技术，但是sysvinit更古老，也仍然受支持）
