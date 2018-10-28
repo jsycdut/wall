@@ -116,6 +116,26 @@ launch(){
   fi
 }
 
+install_bbr(){
+  echo
+  info "Shadowsocks has been installed and already launched"
+  info "There is an additional step for you: BBR for tcp congestion control"
+  info "BBR can improve the performance of your shadowsocks, but it needs the latest version of the kernel"
+
+  info "Now we are going to install bbr to improve the performance of shadowsocks"
+  
+  read -p "press [Y/y] to continue, [N/n] or any other key to give up" k
+  case "$k" in
+    Y|y)
+      info "Just follow the instrunction of the script and install it, do not forget restart this linux ater the bbr installation complete"
+      cd $base && chmod +x bbr.sh && bash bbr.sh
+      ;;
+    *)
+      info "OK, bbr will not be installed, enjoy yourself." 
+      ;;
+  esac
+}
+
 check_os
 preinstall
 #get_ip
@@ -125,3 +145,4 @@ install
 install_service
 launch
 show_shadowsocks_info
+install_bbr

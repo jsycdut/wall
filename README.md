@@ -14,6 +14,7 @@
 - [ ] Arch
 - [x] Systemd for Shadowsocks
 - [x] SysVinit for shadowsocks
+- [x] bbr (TCP拥塞控制)
 - [ ] iptables规则
 
 ## 使用方法
@@ -45,7 +46,7 @@ Method:      aes-256-cfb
 
 4. 为Shadowsocks添加启动脚本（只支持使用systemd作为启动脚本的系统）
 
-5. 清理系统安装文件
+5. 安装bbr提升TCP性能
 
 * `add_user.sh`
 
@@ -55,13 +56,37 @@ Method:      aes-256-cfb
 ## 关于启动脚本
 
 启动脚本用于开机启动shadowsocks服务运行，另外一方面支持使用service命令来管理shadowsocks的启动，结束，重启以及状态查询
+在安装脚本中，对当前Linux的启动系统进行了判断，同时支持了sysvinit和systemd两种，安装完成后使用上面对应的命令即可进行服务的管理，一般Ubuntu 15.04+， CentOS 7+， Debian 8+等系统都是systemd，之前的系统都可以使用sysvinit。
+如何判断当前是sysvinit还是systemd？ 使用`ps -p 1 | grep systemd && grep "systemd"`此条命令即可，如果输出systemd，那么当前系统就是由systemd启动的，如果没有任何输出，那么就不是systemd，就可以认定为sysvinit（其实还有一种upstart技术，但是sysvinit更古老，比如upstart，我更喜欢sysvinit那种风格的脚本）。
+
+* shadowsocks服务管理
 ```
-# 针对sysvinit启动的系统
 service shadowsocksd {start|stop|restart|status}
 
-# 针对systemd启动的系统
-service shadowsocks {start|stop|restart|status} 或者 systemctl {start|stop|restart|status} shadowsocks
+# 关于命令选项
+# start   启动shadowsocks
+# stop    停止shadowsocks
+# restart 重启shadowsocks
+# status  查询shadowsocks状态
 ```
-在安装脚本中，对当前Linux的启动系统进行了判断，同时支持了sysvinit和systemd两种，安装完成后使用上面对应的命令即可进行服务的管理，一般Ubuntu 15.04+， CentOS 7+， Debian 8+等系统都是systemd，之前的系统都可以使用sysvinit。
 
-如何判断当前是sysvinit还是systemd？ 使用`ps -p 1 | grep systemd && grep "systemd"`此条命令即可，如果输出systemd，那么当前系统就是由systemd启动的，如果没有任何输出，那么就不是systemd，就可以认定为sysvinit（其实还有一种upstart技术，但是sysvinit更古老，也仍然受支持）
+* 查询服务状态示例
+```
+root@vultr:~# service shadowsocksd status
+● shadowsocksd.service - LSB: This is a sysvinit style init script for shadowsocks
+   Loaded: loaded (/etc/init.d/shadowsocksd; bad; vendor preset: enabled)
+   Active: active (running) since Sat 2018-10-27 06:24:49 UTC; 1 day 2h ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1104 ExecStart=/etc/init.d/shadowsocksd start (code=exited, status=0/SUCCESS)
+    Tasks: 6
+   Memory: 29.6M
+      CPU: 17.028s
+   CGroup: /system.slice/shadowsocksd.service
+           ├─1599 /usr/bin/python /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
+           ├─1601 /usr/bin/python /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
+           ├─1602 /usr/bin/python /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
+           ├─1603 /usr/bin/python /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
+           ├─1604 /usr/bin/python /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
+           └─1605 /usr/bin/python /usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
+```
+
