@@ -127,13 +127,14 @@ install_bbr(){
 
   info "Now we are going to install bbr to improve the performance of shadowsocks"
   
-  read -t 10 -p "press [Y/y] to continue, [N/n] or any other key to give up (default)" k
+  read -t 10 -p "press [Y/y] to continue, [N/n] or any other key to give up (default[N/n])" k
   case "$k" in
     Y|y)
       info "Just follow the instrunction of the script and install it, do not forget restart this linux ater the bbr installation complete"
       cd $base && chmod +x bbr.sh && bash bbr.sh
       ;;
     *)
+      echo
       info "OK, bbr will not be installed, enjoy yourself." 
       ;;
   esac
