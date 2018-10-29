@@ -66,6 +66,6 @@ show_shadowsocks_info(){
 `info "Server Port: 8388"`
 `info "Password:    https://github.com/jsycdut"`
 `info "Method:      aes-256-cfb"`
-🌈  `info " Ggood day or bad day, make it a valuable day."`
+🌈  `info " ood day or bad day, make it a valuable day."`
 EOF
 }
