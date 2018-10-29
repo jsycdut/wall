@@ -112,16 +112,6 @@ EOF
   fi
 }
 
-# launch shadowsocks in daemon mode
-launch(){
-  service shadowsocksd start > /dev/null 2>&1
-  if [[ $? -eq 0 ]]; then
-    info "Shadowsocks started! Enjoy yourself!"
-  else
-    error "Failed to start Shadowsocks! Aborted!"
-  fi
-}
-
 install_bbr(){
   echo
   info "Shadowsocks has been installed and already launched"
@@ -145,11 +135,9 @@ install_bbr(){
 
 check_os
 preinstall
-#get_ip
 get_ip_by_api
 config
 install
 install_service
-launch
 show_shadowsocks_info
 install_bbr
