@@ -110,7 +110,7 @@ EOF
 
 # launch shadowsocks in daemon mode
 launch(){
-  sudo ssserver -qq -c /etc/shadowsocks.json -d start > /dev/null 2>&1
+  service shadowsocksd start > /dev/null 2>&1
   if [[ $? -eq 0 ]]; then
     info "Shadowsocks started! Enjoy yourself!"
   else
