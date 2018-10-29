@@ -8,6 +8,8 @@ cat << EOF
 ####################### Statement ################################
 EOF
 
+CWD=`pwd`
+
 #set -e
 # check privilege
 if [[ $EUID -ne 0 ]]; then
@@ -95,7 +97,8 @@ ExecStop=/usr/local/bin/ssserver -d stop
 WantedBy=multi-user.target
 EOF
   else
-    cp shadowsocksd /etc/init.d
+    
+    cp "$CWD"/shadowsocksd /etc/init.d
     ln -s /etc/init.d/shadowsocksd  /etc/rc0.d/K78shadowsocksd
     ln -s /etc/init.d/shadowsocksd  /etc/rc1.d/K78shadowsocksd
     ln -s /etc/init.d/shadowsocksd  /etc/rc2.d/S55shadowsocksd
