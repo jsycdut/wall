@@ -48,7 +48,7 @@ do_status(){
   if [ -f "$SHADOWSOCKS_LOCK_FILE" ]; then
     echo -e "\033[32m" Shadowsocks is running... "\033[0m"
   else
-    echo -e "\033[31m" Shadowsocks has stopped "\33[0m"
+    echo -e "\033[31m" Shadowsocks has stopped "\033[0m"
   fi
 }
 

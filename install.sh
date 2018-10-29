@@ -84,7 +84,7 @@ install(){
 install_service(){
   local systemd=$(ps -p 1 | grep systemd && echo "systemd")
   if [ -n "$systemd" ]; then
-    cat > "/lib/systemd/system/shadowsocks.service" << EOF
+    cat > "/lib/systemd/system/shadowsocksd.service" << EOF
 [Unit]
 Description=Shadowsocks systemd service
 
@@ -96,6 +96,9 @@ ExecStop=/usr/local/bin/ssserver -d stop
 [Install]
 WantedBy=multi-user.target
 EOF
+    systemctl daemon-reload
+    systemctl enable shadowsocksd.service
+    systemctl start shadowsocksd.service
   else
     cp "$CWD"/shadowsocksd /etc/init.d
     ln -s /etc/init.d/shadowsocksd  /etc/rc0.d/K78shadowsocksd
@@ -105,6 +108,7 @@ EOF
     ln -s /etc/init.d/shadowsocksd  /etc/rc4.d/S55shadowsocksd
     ln -s /etc/init.d/shadowsocksd  /etc/rc5.d/S55shadowsocksd
     ln -s /etc/init.d/shadowsocksd  /etc/rc6.d/K78shadowsocksd
+    service shadowsocksd start > /dev/null 2>&1
   fi
 }
 
