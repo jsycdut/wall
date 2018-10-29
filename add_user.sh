@@ -25,8 +25,7 @@ adduser(){
     exit 1
   fi
 
-  for (( i = 0; i < ${#ports[@]}; i++ )); 
-  do
+  for (( i = 0; i < ${#ports[@]}; i++ )); do
     cd /home/jsy/shadowsocks/ss-bash/ && ./ssadmin.sh add ${ports[$i]} ${passwords[$i]} 50GB
   done
 }

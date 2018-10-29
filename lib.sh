@@ -61,11 +61,11 @@ EOF
 show_shadowsocks_info(){
   cat << EOF
 `info  `
-`info "Your Shadowsocks Serverside Information shows as below (๑¯◡¯๑)"`
+`info "Your Shadowsocks Serverside Information Shows as Below (๑¯◡¯๑)"`
 `info "Server IP:  " $ip`
 `info "Server Port: 8388"`
 `info "Password:    https://github.com/jsycdut"`
 `info "Method:      aes-256-cfb"`
-🌈 good day or bad day, make it a valuable day.
+🌈  `info " Ggood day or bad day, make it a valuable day."`
 EOF
 }

@@ -97,7 +97,6 @@ ExecStop=/usr/local/bin/ssserver -d stop
 WantedBy=multi-user.target
 EOF
   else
-    
     cp "$CWD"/shadowsocksd /etc/init.d
     ln -s /etc/init.d/shadowsocksd  /etc/rc0.d/K78shadowsocksd
     ln -s /etc/init.d/shadowsocksd  /etc/rc1.d/K78shadowsocksd
@@ -127,7 +126,7 @@ install_bbr(){
 
   info "Now we are going to install bbr to improve the performance of shadowsocks"
   
-  read -t 10 -p "press [Y/y] to continue, [N/n] or any other key to give up (default[N/n])" k
+  read -t 10 -p "press [Y/y] to continue, [N/n] or any other key to give up (default[N/n]) :" k
   case "$k" in
     Y|y)
       info "Just follow the instrunction of the script and install it, do not forget restart this linux ater the bbr installation complete"
