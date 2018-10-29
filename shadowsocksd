@@ -35,7 +35,7 @@ do_stop(){
     ssserver -d stop 
     [ $? -ne 0 ] && RETVAL=1
     rm -f $SHADOWSOCKS_LOCK_FILE
-    echo "\033[31m" Shadowsocks stopped "\033[0m"
+    echo -e "\033[31m" Shadowsocks stopped "\033[0m"
   fi
 }
 
