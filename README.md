@@ -53,6 +53,19 @@ Method:      aes-256-cfb
 1. 读取port和password数组的内容
 2. 利用脚本添加shadowsocks用户
 
+## bbr的安装
+bbr用于控制tcp网络拥塞，性能相当不错，当前使用的脚本不支持CentOS系列内核，这一点需要注意，另外，在debian系统上安装bbr的时候，都会比较顺利，但是在Ubuntu上安装的时候，需要做两次选择，分别是选择引导菜单为`install the package maintainer's version`和移除旧内核安装新内核，这一点在`abort kernel removal`上选择`NO`，如下图
+
+**注意以下图片针对Ubuntu系统，其余系统可以参考**
+
+* 选择 `install the package maintainer's version`
+![grub modification](https://raw.githubusercontent.com/jsycdut/shadowsocks-install-scripts/master/media/ubuntu-bbr-installation.png)
+
+
+* `abort keep kernel removal`选择NO
+![keep removing old kernel](https://raw.githubusercontent.com/jsycdut/shadowsocks-install-scripts/master/media/no-abort-removal.png)
+
+
 ## 关于启动脚本
 
 启动脚本用于开机启动shadowsocks服务运行，另外一方面支持使用service命令来管理shadowsocks的启动，结束，重启以及状态查询
