@@ -89,7 +89,7 @@ install_service(){
 Description=Shadowsocks systemd service
 
 [Service]
-Type=fork
+Type=forking
 ExecStart=/usr/local/bin/ssserver -qq -c /etc/shadowsocks.json -d start
 ExecStop=/usr/local/bin/ssserver -d stop
 
