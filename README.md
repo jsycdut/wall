@@ -15,8 +15,9 @@
 - [x] Systemd for Shadowsocks
 - [x] SysVinit for shadowsocks
 - [x] bbr (TCP拥塞控制)
+- [ ] 去除bbr脚本依赖
 - [ ] iptables规则
-
+- [ ] kcptun加速
 ## 使用方法
 **只需要顺序执行如下命令即可完成Shadowsocks的安装**
 ```bash
