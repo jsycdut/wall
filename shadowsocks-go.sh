@@ -28,7 +28,7 @@ net.core.netdev_max_backlog=2048 // proportional to -rcvwnd
 EOF
 cd $DEST
 nohup ./shadowsocks-server -c config.json &
-nohup ./server_linux_amd64 -t "0.0.0.0:8388" -l ":4000" -mode fast3 -nocomp -sockbuf 16777217 -dscp 46 &
+nohup ./server_linux_amd64 -t "0.0.0.0:8388" -l ":4000" -mode default -nocomp -sockbuf 54525952 -dscp 46 &
 
 
 
