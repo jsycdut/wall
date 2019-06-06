@@ -11,7 +11,6 @@
 - [x] Ubuntu 16.04
 - [x] Cent OS 6 
 - [x] Cent OS 7
-- [ ] Arch
 - [x] Systemd for Shadowsocks
 - [x] SysVinit for shadowsocks
 - [x] bbr (TCP拥塞控制)
