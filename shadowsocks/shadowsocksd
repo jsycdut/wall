@@ -1,0 +1,64 @@
+#! /bin/bash
+
+# Ahthor: jsy<jsycdut@gmail.com>
+
+### BEGIN INIT INFO
+# Provides:          shadowsocksd
+# Required-Start:    $local_fs $network $syslog
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: This is a sysvinit style init script for shadowsocks
+# Description;       This script is written for managing shadowsocks's server side 
+#                    which can be controlled by service command
+### END INIT INFO
+
+[ ! -d "/var/run/shadowsocks" ] && mkdir /var/run/shadowsocks
+[ ! -d "/var/lock/subsys/shadowsocks" ] && mkdir /var/lock/subsys/shadowsocks
+SHADOWSOCKS_LOCK_FILE=/var/lock/subsys/shadowsocks/shadowsocksd
+RETVAL=0
+
+do_start(){
+  if [ -f "$SHADOWSOCKS_LOCK_FILE" ]; then
+    echo -e "\033[32m" "Shadowsocks has already been started " "\033[0m"
+  else
+    ssserver -qq -c /etc/shadowsocks.json -d start 
+    touch $SHADOWSOCKS_LOCK_FILE
+    echo -e "\033[32m" Shadowsocks started "\033[0m"
+  fi
+}
+
+do_stop(){
+  if [ ! -f "$SHADOWSOCKS_LOCK_FILE" ]; then
+    echo -e "\033[32m" Shadowsocks has already stopped "\033[0m"
+  else
+    ssserver -d stop 
+    [ $? -ne 0 ] && RETVAL=1
+    rm -f $SHADOWSOCKS_LOCK_FILE
+    echo -e "\033[31m" Shadowsocks stopped "\033[0m"
+  fi
+}
+
+do_restart(){
+  do_stop
+  do_start
+}
+
+do_status(){
+  if [ -f "$SHADOWSOCKS_LOCK_FILE" ]; then
+    echo -e "\033[32m" Shadowsocks is running... "\033[0m"
+  else
+    echo -e "\033[31m" Shadowsocks has stopped "\033[0m"
+  fi
+}
+
+case "$1" in
+  start|stop|restart|status)
+    do_$1
+    ;;
+  *)
+    echo -e "\033[32m" "Usage: service `basename $0` start|stop|restart|status" "\033[0m"
+    ;;
+ esac
+
+ exit $RETVAL
